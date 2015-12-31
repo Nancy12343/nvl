@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/writer.css' %}" rel=stylesheet type="text/css"/>
+<link href = "{% static 'css/managerLogin.css' %}" rel = stylesheet type = "text/css"/>
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	function edit(novelId){
+		//alert(novelId);
+		location.href = "{% url 'novels:edit' %}?id="+novelId;
+	}
+	function forWriter(){
+		//alert(writer);
+		alert("申请成功！请等待后台审核");
+{#		location.href="{% url 'novels:writerInfo' id%}?apply=True";#}
+        document.getElementById("applywriterFrm").submit();
+	}
+	function addNovel(){
+		//alert(1);
+		document.getElementById("mytable").style.display = "none";
+		document.getElementById("novelInput").style.display = "block";
+	}
+	function submitt(){
+		document.getElementById("novelFrm").submit();
+	}
+</script>
+{% endblock %}
+{% block content %}
+	<div class = "body">
+		{% include 'top.html' %}
+		<!-- main -->
+		<div class = "new_title">个人信息</div>
+		<div class = "margin_top3 float_left color">昵称：{{ account.name }}</div>
+		<div class = "margin_top3 float_left margin_left2 color">积分：{{ account.point }}</div>
+		<div class = "clear_float"></div>
+		{% if role == 'reader' %}
+			<div class = "mytable margin_top2">
+                <form id = "applywriterFrm" action="{% url 'novels:writerInfo'  account.user.id%}" method="post">{% csrf_token %}
+                    <input type = "button" value = "申请为作者" onclick="forWriter()">
+                </form>
+			</div>
+		{% endif %}
+		{% if role == 'to be writer' %}
+			<div class = "mytable margin_top2">
+				您的申请作者请求系统正在审核中...
+			</div>
+		{% endif %}
+		{% if role == 'writer' %}
+			<div class = "arts margin_top2">主要作品：</div>
+			{% if account.user == user %}
+				<div class ="margin_top2 margin_left2">
+					<input type = "button" value = "添加小说" onclick="addNovel()">
+				</div>
+			{% endif %}
+			<div class = "mytable" >
+				<table class = "margin_top" id = "mytable">
+					<tr>
+						<th class = "td_width">封面</th>
+						<th class = "td_width">小说名</th>
+						<th class = "td_width">是否已完结</th>
+						<th class = "td_width">小说类型</th>
+						{% if account.user == user %}
+							<th class = "td_width">编辑</th>
+						{% endif %}
+					</tr>
+					{% for res in novelDetails %}
+						<tr>
+							<td class = "td_width"><img  width="80px" height="100px" src="{{ res.image.url }}"></td>
+							<td class = "td_width"><a href = "{% url 'novels:detail' %}?pk={{ res.id }}">{{ res.name }}</a></td>
+							{% if res.is_finish == 1 %}
+								<td class = "td_width">是</td>
+								<td class = "td_width">{{ res.novelSection.all }} </td>
+								{% if account.user == user %}
+									<td class = "td_width"><input type = "button" disabled="disabled" value = "不可编辑"></td>
+								{% endif %}
+							{% endif %}
+							{% if not res.is_finish %}
+								<td class = "td_width">否</td>
+								<td class = "td_width">{{ res.novelSection }} </td>
+								{% if account.user == user %}
+									<td class = "td_width"><input type = "button" onclick="edit('{{ res.id }}')" value = "编辑"> </td>
+								{% endif %}
+							{% endif %}
+						</tr>
+					{% endfor %}
+				</table>
+				<div id = "novelInput" style = "display: none; margin-left: 200px; color: #6775A6; font-weight: bold;">
+                    <form id = "novelFrm" action = "{% url 'novels:addNovel' %}" method = "post" enctype = "multipart/form-data">
+                    {% csrf_token %}
+	    				<table class = "td_height">
+	    				<tr>
+	    				<td>小说类型：</td>
+	    				<td>
+	    				{% for res in novelSections %}
+                            <input type = "radio" checked="checked" name = "section" value = "{{ res.name }}"> {{ res.name }}
+	    				{% endfor %}
+	    				</td>
+	    				</tr>
+	    					<tr>
+	    						<td>小说名字：</td>
+	    						<td><input type = "text" name = "novelName" id = "novelName"></td>
+	    					</tr>
+	    					<tr>
+	    						<td>小说简介：</td>
+	    						<td><textarea rows="6" cols="40" name = "sumary" id = "sumary"></textarea></td>
+	    					</tr>
+	    					<tr>
+	    						<td>请上传封面图片：</td>
+	    						<td><input type = "file" name = "imageAddr"></td>
+	    					</tr>
+	    				</table>
+                    </form>
+                    <div class = "btns">
+                        <div onclick="submitt()" class = "float_left margin_left login_btn" >确定</div>
+                        <div class = "float_left margin_left2 login_btn">取消</div>
+                        <div class = "clear_float"></div>
+                    </div>
+                    <div class = "clear_float"></div>
+				</div>
+			</div>
+		{% endif %}
+		{% include 'bottom.html' %}
+	</div>
+{% endblock %}

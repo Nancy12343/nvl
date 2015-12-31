@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	function search(){
+		document.getElementById("searchFrm").submit();
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+	<!-- main body -->
+	<div class = "body">
+		<!-- top logo -->
+		<div class = "top"> <img src="{{ STATIC_URL }}image/logo/logo5.png"> </div>
+		<!-- login -->
+		{% if not user.is_authenticated %}
+			<div class = "float_right login margin_top3">
+				<div class = "item_width float_right"><a href = "{% url 'accounts:login' %}">登录</a></div>
+				<div class = "item_width float_right"><a href = "{% url 'accounts:regist' %}">注册</a></div>
+				<div class = "item_width float_right"><a href = "{% url 'novels:home' %}">首页</a></div>
+				<div class = "clear_float"></div>
+			</div>
+		{% else %}
+			<div class = "float_right login margin_top3">
+				<div class = "item_width float_right"><a href = "{% url 'accounts:logout' %}">注销</a></div>
+				<div class = "item_width float_right"><a href = "{% url 'novels:writerInfo' user.id %}">欢迎：{{ user }}</a></div>
+				<div class = "item_width float_right"><a href = "{% url 'novels:home' %}">首页</a></div>
+				<div class = "clear_float"></div>
+			</div>
+		{% endif %}
+		<!-- search -->
+		<div class = "float_left margin_top3">
+			<form action="searchAction" method = "post" id = "searchFrm">
+				<div class = "float_left">
+					<select name = "searchCondition">
+						<option>请选择搜索条件</option>
+						<option>作者</option>
+						<option>书名</option>
+					</select>
+				</div>
+				<div class = "float_left margin_left">
+					<input type = "text" name = "searchContext">
+				</div>
+				<div class = "float_left margin_left search_btn" onclick="search()">搜索</div>
+				<div class = "clear_float"></div>
+			</form>
+		</div>
+		<div class = "clear_float"></div>
+	</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load widget_tweaks staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel=stylesheet type = "text/css">
+<link href = "{% static 'css/managerLogin.css' %}" rel = stylesheet type = "text/css"/>
+<link href = "{% static 'css/regist.css' %}" rel = stylesheet type = "text/css"/>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+ function login(){
+ 	document.getElementById("frm").submit();
+ }
+function regist(){
+    location.href ="{% url 'accounts:regist' %}"
+}
+</script>
+{% endblock %}
+{% block content %}
+    <div class = "body">
+        <div class = "top"> <img src="image/logo/logo5.png"> </div>
+        <!-- main -->
+        <div class = "main_height">
+            <div class = "title_font">登陆 >></div>
+                {% if form.non_field_errors or error_message %}
+                <div class="">
+                    {% for error in form.non_field_errors %}
+                    <p class=""><strong>{{ error }}</strong></p>
+                    {% endfor %}
+                    {% if error_message %}
+                    <p class=""><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <p class="">Note that Password is case sensitive.'</p>
+                </div>
+                {% endif %}
+                {% if info %}
+                <div class="">
+                    {% if info %}
+                    <p class=""><strong>{{ info }}</strong></p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            <div class = "square_border">
+                <form class="login_div" id="frm" method="post" action=".">
+                    {% csrf_token %}
+                    <fieldset class="margin_left2" style="border: 0">
+                        <label class="">{{ form.username.label }}</label>
+                        {{ form.username }}
+                    </fieldset>
+
+                    <fieldset class="margin_left2" style="border: 0">
+                        <label class="">{{ form.password.label }}</label>
+                        {{ form.password }}
+                    </fieldset>
+
+                    <!--<fieldset class="">
+                        <a class="" href="">Forgot Password'</a>
+                        <label class="">&nbsp;</label>
+                        <input class="margin_left2 login_btn" type="submit" value="Sign in to my account">
+                    </fieldset>-->
+                    <div class = "login_btns">
+                        <div class = "float_right margin_left2 login_btn">取消</div>
+                        <div class = "float_right margin_left2 login_btn" onclick="regist()">注册</div>
+                        <div class = "float_right margin_left2 login_btn" onclick="login()">登陆</div>
+                        <div class = "clear_float"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% include 'bottom.html' %}
+    </div>
+
+{% endblock %}

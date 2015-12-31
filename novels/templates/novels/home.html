@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel=stylesheet type="text/css"/>
+{% endblock %}
+{% block content %}
+	<!-- main body -->
+	<div class = "body">
+		<!-- Top -->
+		{% include 'top.html' %}
+		<!-- main body -->
+		<div>
+			<!-- ADV -->
+			<div> <img src="{{ STATIC_URL }}image/ADV/ADV1.gif"> </div>
+			<!-- left -->
+			<div class = "float_left left_width">
+				<!-- new -->
+				<div>
+					<div class = "new_title">最近更新</div>
+					<div class = "margin_top">
+                        {% for res in latest %}
+							<div class = "item_div float_left">
+								<div><img width="160px" height="226px"  src="{{ res.image.url }}"> </div>
+								<div><a href = "{% url 'novels:detail' %}?pk={{ res.id }}">{{ res.name }}</a></div>
+								<div>最后更新时间 {{ res.last_edit }} </div>
+								<div>作者：<a href = "{% url 'novels:writerInfo' res.writer.id %}">{{ res.writer.account }}</a> </div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class = "margin_top2"> <img width="780px" src="{{ STATIC_URL }}image/ADV/ADV2.gif"> </div>
+				<!-- different type -->
+				<div>
+                    {% for section in sections %}
+						<div class = "new_title">
+							<div class = "float_left">{{ section.name }}</div>
+							<div class = "float_right margin_right"> <a class="more font" href = "{% url 'novels:subtype' %}?section={{ section.id }}">更多>></a> </div>
+							<div class = "clear_float"></div>
+						</div>
+						<div class = "margin_top">
+                        {% for result in section.details %}
+                            <div class = "item_div float_left">
+                                <div><img width="160px" height="226px" src="{{ result.novelDetail.image.url }}"> </div>
+                                <div><a href = "{% url 'novels:detail' %}?pk={{ result.novelDetail.id }}">{{ result.novelDetail.name }}</a></div>
+                                <div>最后更新时间 {{ result.novelDetail.last_edit }} </div>
+                                <div>作者：<a href = "{% url 'novels:writerInfo' result.novelDetail.writer.id %}">{{ result.novelDetail.writer.account }}</a> </div>
+                            </div>
+                        {% endfor %}
+						</div>
+						<div class = "clear_float"></div>
+                    {% endfor %}
+				</div>
+			</div>
+			<!-- right -->
+			<!-- ADV -->
+			<!--<div class = "float_left margin_top2">
+				<div style="margin-left:15px;"><img src="{{ STATIC_URL }}image/squarePic.gif'"></div>
+			</div>-->
+			<div class = "float_left right ">
+					<div class = "total_top">总榜单</div>
+                    {% for res in totalTop %}
+						<div class = "font margin_left"><a href = "{% url 'novels:detail' %}?pk={{ res.id }}">{{ res.name }}</a></div>
+                    {% endfor %}
+			</div>
+			<!-- ADV -->
+			<div class = "float_left margin_top2">
+				<div style="margin-left:15px;"><img src="{{ STATIC_URL }}image/pic1.gif"></div>
+			</div>
+
+			<div class = "float_left margin_top2">
+				<div style="margin-left:15px;"><img src="{{ STATIC_URL }}image/pic2.jpg"></div>
+			</div>
+			<div class = "float_left margin_top2">
+				<div style="margin-left:15px;"><img src="{{ STATIC_URL }}image/pic3.gif"></div>
+			</div>
+			<div class = "float_left margin_top2">
+				<div>畅游书海客户端</div>
+				<div class = "adv2"><img src="{{ STATIC_URL }}image/ADV/scan.png"></div>
+			</div>
+			<div class = "clear_float"></div>
+		</div>
+		<!-- bottom -->
+		{% include 'bottom.html' %}
+	</div>
+{% endblock %}

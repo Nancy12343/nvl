@@ -1,0 +1,49 @@
+.regist_div{
+		width: 400px;
+		margin: auto;
+		color: #666;
+		font-size: 14px;
+		line-height: 30px;
+		padding-top: 20px;
+}
+.login_div{
+		width: 400px;
+		margin: auto;
+		color: #666;
+		font-size: 15px;
+		line-height: 40px;
+		padding-top: 50px;
+}
+.main_height{
+	height: 500px;
+}
+.login_btns{
+	width: 450px;
+	margin: auto;
+	margin-top: 40px;
+}
+.regist_btns{
+	width: 450px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.font_red{
+	color: red;
+	font-size: 13px;
+}
+.title_font{
+	font-size: 30px;
+	font-weight: bold;
+	color: #6775A6;
+	padding-top: 50px;
+	padding-left: 70px;
+}
+.square_border{
+	border: 1px solid #6775A6;
+	width: 550px;
+	margin:auto;
+	border-radius: 15px;
+	height: 300px;
+	margin-top: 50px;
+}

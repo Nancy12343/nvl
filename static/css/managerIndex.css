@@ -1,0 +1,75 @@
+.display_none{
+  		display: none;
+  	}
+  	.right_width{
+  		width: 18%;
+  		border: 1px solid #CCC;
+  		height: 700px;
+  		padding-right: 5px;
+  	}
+  	.left_width{
+  		width: 70%;
+  		height:680px;
+  		background-color: #EEE;
+  		padding-left: 5px;
+  		padding-top: 20px;
+  	}
+  	.left_btn{
+  		border: 1px solid #6775A6;
+  		border-radius: 15px;
+  		width: 150px;
+  		margin: auto;
+  		height: 30px;
+  		line-height: 30px;
+		margin-top: 20px;
+		background-color: #6775A6;
+		cursor: pointer;
+  	}
+  	.left_text{
+  		text-align: center;
+  		color: white;
+  		font-weight: bold;
+  	}
+  	.welcome_text{
+  		font-size: 16px;
+  		font-family:inherit;
+  		color: #6775A6;
+  		font-weight: bold;
+  	}
+  	.td1{
+  		color: #6775A6;
+  		font-size: 16px;
+  		width: 150px;
+  		border-left: 1px solid #6775A6;
+  		border-bottom: 1px solid #6775A6;
+  		font-weight: bold;
+  		text-align: center;
+  		height: 35px;
+  		line-height: 35px;
+  	}
+  	.td2{
+  		font-size: 15px;
+  		width: 150px;
+  		text-align: center;
+  		border-left: 1px solid #6775A6;
+  		border-bottom: 1px solid #6775A6;
+  		height: 25px;
+  		line-height: 25px;
+  	}
+  	.td3{
+  		width:50px;
+  		text-align: center;
+  		border-left: 1px solid #6775A6;
+  		border-bottom: 1px solid #6775A6;
+  		height: 25px;
+  		line-height: 25px;
+  	}
+  	.table_border{
+  		border-right: 1px solid #6775A6;
+  		border-top: 1px solid #6775A6;
+  	}
+  	.section{
+  		font-weight: bold;
+  		font-size: 25px;
+  		color: #6775A6;
+  	}

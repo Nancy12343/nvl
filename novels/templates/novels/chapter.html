@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css%}
+<link href="{% static 'css/index.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/detail.css' %}" rel=stylesheet type="text/css"/>
+<link href = "{% static 'css/managerLogin.css' %}" rel = stylesheet type = "text/css"/>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	function catalog(novelId){
+		location.href = "{% url 'novels:detail' %}?pk="+novelId;
+	}
+	function mySubmit(){
+		var comment = document.getElementById("comment").innerHTML;
+		var chapterId = document.getElementById("chapterId").value;
+		//alert(chapterId);
+		//alert(comment);
+        location.href = "{% url 'novels:comment' %}?content="+comment+"&chapterId="+chapterId;
+	}
+	function mySubmitt(){
+		alert("您还没有登录！请先登录再评论");
+	}
+	function download(fileName){
+		//alert(fileName);
+		location.href = "{% url 'novels:download_chapter' %}?file="+fileName;
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+	<!-- Top -->
+	{% include 'top.html' %}
+	<!-- main body -->
+	<div class = "body">
+		<!-- ADV -->
+		<div> <img src="{{ STATIC_URL }}image/ADV/ADV1.gif"> </div>
+		<div>
+			{{ chapter.title }}
+			<!-- <s:property value = "#request.chapter.content"/> -->
+			{% include 'open.html' %}
+		</div>
+		<div class = "float_right">
+			<div class = "float_left margin_left login_btn" onclick="download('{{ chapter.content }}')">下载</div>
+            {% if chapter.pre_chapter %}
+                <div class = "float_left margin_left login_btn"><a class="font_white" href="{% url 'novels:chapter' chapter.pre_chapter.id %}">上一章</a></div>
+            {% endif %}
+			{% if next_chapter %}
+                <div class = "float_left margin_left login_btn"><a class="font_white" href="{% url 'novels:chapter' next_chapter.id %}">下一章</a></div>
+			{% endif %}
+			<div class = "float_left margin_left login_btn" onclick="catalog('{{ novelDetail.id }}')">目录</div>
+			<div class = "clear_float"></div>
+		</div>
+		<div class = "clear_float"></div>
+		<!-- 评论 -->
+		<div class = "comDiv">
+		<!-- 已有评论 -->
+            <!--class="cDiv"-->
+			<div class = "">
+				{% for res in comments %}
+					<div class = "commentDiv ">
+						<div style = "width: 20%; float: left;">{{res.user }}评论说：</div>
+						<div style = "width: 80%; float: left;">{{res.content }}</div>
+						<div class = "clear_float"></div>
+					</div>
+				{% endfor %}
+			</div>
+			<div>发表评论</div>
+			<input type = "hidden" value = "{{ chapter.id }}" id = "chapterId">
+			<div class = "commentDiv1" contentEditable = "true" id = "comment"></div>
+			<div class = "btns margin_top2">
+				<div class = "float_right margin_left2 login_btn">取消</div>
+                {% if user %}
+                    <div class = "float_right margin_left2 login_btn" onclick="mySubmit()">确定</div>
+                {% endif %}
+                {% if not user %}
+                    <div class = "float_right margin_left2 login_btn" onclick="mySubmitt()">确定</div>
+                {% endif %}
+				<div class = "clear_float"></div>
+			</div>
+		</div>
+		<!-- bottom -->
+		{% include 'bottom.html' %}
+	</div>
+{% endblock %}

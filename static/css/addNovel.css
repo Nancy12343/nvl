@@ -1,0 +1,19 @@
+.title_font{
+  		font-size: 25px;
+		font-weight: bold;
+		color: #6775A6;
+  	}
+  	.pos{
+  		padding-top: 50px;
+		padding-left: 70px;
+  	}
+  	.pos2{
+  		margin-top: 20px;
+		padding-left: 100px;
+  	}
+  	.input_width{
+  		width: 200px;
+  	}
+  	.color_red{
+  		color: red;
+  	}

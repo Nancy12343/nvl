@@ -1,0 +1,57 @@
+.detail_div{
+		width: 150px;
+		margin-right: 60px;
+		border: 1px solid #6775A6;
+		height: 200px;
+	}
+	.right_info{
+		margin-left: 50px;
+		font-size: 15px;
+		color: #666;
+		line-height: 25px;
+		width: 500px;
+	}
+	.text_align{
+		text-align: center;
+	}
+	.catalog{
+		width: 200px;
+		line-height: 25px;
+		font-size: 14px;
+	}
+	.detailDiv{
+		overflow-y: auto;
+		height: 170px;
+	}
+	.commentDiv{
+		width: 850px;
+		border: 1px solid #6775A6;
+		height: 50px;
+		margin-bottom: 20px;
+		margin-top: 20px;
+		padding-left: 20px;
+		padding-top: 20px;
+	}
+	.commentDiv1{
+		width: 600px;
+		border: 1px solid #6775A6;
+		height: 100px;
+		margin-bottom: 20px;
+		margin-top: 20px;
+		padding-left: 20px;
+		padding-top: 20px;
+	}
+	.comDiv{
+		width: 600px;
+	}
+	.cDiv{
+		width: 900px;
+		height: 300px;
+		overflow: auto;
+	}
+	.wrap{
+    white-space:normal;
+    word-wrap:break-word;
+    word-break:break-all;
+    background-color: #EEE;
+	}

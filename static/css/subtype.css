@@ -1,0 +1,17 @@
+	.type_name{
+		font-size: 20px;
+		
+	}
+	.subtype_div{
+		width: 120px;
+		margin-right: 60px;
+		border: 1px solid #6775A6;
+		height: 150px;
+	}
+	.margin_top2{
+		margin-top: 50px;
+	}
+	.main_auto{
+		width: 920px;
+		margin: auto;
+	}

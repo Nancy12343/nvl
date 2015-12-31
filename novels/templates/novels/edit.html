@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/subtype.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/detail.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/writer.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/managerIndex.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/managerLogin.css' %}" rel=stylesheet type="text/css"/>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+
+	function showAdd(){
+		document.getElementById("addChapter").style.display = "block";
+		document.getElementById("chapters").style.display = "none";
+
+	}
+	function noneAdd(){
+		document.getElementById("addChapter").style.display = "none";
+		document.getElementById("chapters").style.display = "block";
+
+	}
+	function addSubmit(){
+		document.getElementById("frm").submit();
+	}
+
+</script>
+{% endblock %}
+{% block content %}
+	<div class = "body">
+		<!-- Top -->
+		{% include 'top.html' %}
+		<!-- main body -->
+		<div>
+			<div class = "new_title">详细信息</div>
+			<div class = "main_auto">
+				<!-- each info -->
+				<div class = "margin_top2">
+					<div class = "float_left">
+						<div><img width="160px" height="226px" src="{{ novelDetail.image.url }}"></div>
+						<div class = "text_align margin_top"> <a href = "{% url 'novels:detail' %}?pk={{ novelDetail.id }}">{{ novelDetail.name }}</a></div>
+					</div>
+					<div class = "right_info float_left">
+						<div>作者：{{ novelDetail.writer }} </div>
+						<div>最新更新时间：{{ novelDetail.last_edit }} </div>
+						<div>点击数：{{ novelDetail.click_count }} </div>
+						{% if novelDetail.is_finish %}
+							<div>是否已完结：是</div>
+						{% endif %}
+						{% if not novelDetail.is_finish %}
+							<div>是否已完结：否</div>
+						{% endif %}
+						<div>类型： {{ sectionName }} </div>
+						<div>简介: {{ novelDetail.sumary }} </div>
+					</div>
+					<div class = "clear_float"></div>
+				</div>
+				<!-- chapter -->
+				<div class = "margin_top2">
+					<div class= "chapter">章节信息    <input type = "button" onclick="showAdd()" value = "添加章节"></div>
+					<!-- add Chapter -->
+					<div class = "welcome_text display_none margin_pos" id = "addChapter">
+						<form id = "frm" action = "{% url 'novels:edit' %}?id={{ novelDetail.id }}" method = "post" enctype = "multipart/form-data">
+                            {% csrf_token %}
+						<!--<table class = "td_height2">
+							<tr>
+								<td class = "td_height2">章节名称：</td>
+								<td class = "td_height2"><input type = "text" name = "chapterName" id = "chapterName"></td>
+							</tr>
+							<tr>
+								<td class = "td_height2">是否是最后一个章节：</td>
+								<td class = "td_height2"> <input type = "radio" name = "isLast" value = "是">是
+									 <input type = "radio" name = "isLast" checked="checked" value = "否">否 </td>
+							</tr>
+							<tr>
+								<td class = "td_height2">请上传小说章节：</td>
+								<td class = "td_height2"><input type = "file" name = "novelAddr"></td>
+							</tr>
+						</table>-->
+                            <fieldset class="td_height2">
+                                <label>{{ form.title.label }}</label>{{ form.title }}
+                            </fieldset>
+                            <fieldset class="td_height2">
+                                <label>{{ form.is_last.label }}</label>{{ form.is_last }}
+                            </fieldset>
+                            <fieldset class="td_height2">
+                                <label>{{ form.content.label }}</label>{{ form.content }}
+                            </fieldset>
+
+						</form>
+						<div class = "margin_left_div">
+							<div class = "float_left margin_left login_btn" onclick="addSubmit()">确定</div>
+							<div class = "float_left margin_left2 login_btn" onclick="noneAdd()">取消</div>
+							<div class = "clear_float"></div>
+						</div>
+					</div>
+					<!-- chapter detail -->
+					<div id = "chapters">
+						<table>
+							<tr>
+								<th class = "td_width th_title">章节</th>
+								<th class = "td_width th_title">最后更新时间</th>
+								<th class = "td_width th_title">是否是最后一个章节</th>
+							</tr>
+							{% for res in chapters %}
+								<tr>
+									<td class = "td_width right_info">{{ res.title }} </td>
+									<td class = "td_width right_info">{{ res.publish_time }} </td>
+									{% if not res.is_last_chapter %}
+										<td class = "td_width right_info">否</td>
+									{% endif %}
+									{% if res.is_last_chapter %}
+										<td class = "td_width right_info">是</td>
+									{% endif %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- bottom -->
+		{% include 'bottom.html' %}
+	</div>
+{% endblock %}
+

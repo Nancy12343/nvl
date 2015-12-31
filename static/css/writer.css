@@ -1,0 +1,46 @@
+	.arts{
+		font-weight: bold;
+		font-size: 20px;
+	}
+	.color{
+		color: #666;
+	}
+	.td_width{
+		width: 200px;
+		text-align: center;
+	}
+	.mytable{
+		overflow-y: auto;
+		height: 400px;
+	}
+	.chapter{
+		color: #6775A6;
+		font-size: 25px;
+	}
+	.th_title{
+		color: #333;
+	}
+	.td_height{
+  		height: 35px;
+  		line-height: 35px;
+  	}
+  	.btns{
+  		width: 300px;
+  		float: right;
+  		margin-top: 10px;
+  	}
+		.display_none{
+		display: none;
+	}
+	.td_height2{
+		height: 40px;
+		border:0;
+	}
+	.margin_left_div{
+		margin-left: 130px;
+		margin-top: 30px;
+	}
+	.margin_pos{
+		width:500px;
+		margin: auto;
+	}

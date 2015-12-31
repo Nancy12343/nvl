@@ -1,0 +1,57 @@
+.login_left_width{
+		width: 60%;
+	}
+	.login_right_width{
+		width: 28%;
+		margin-top: 100px;
+	}
+	.body_height{
+		height: 500px;
+	}
+	.item_pwd{
+		margin-bottom: 15px;
+		margin-top: 30px;
+		font-size: 14px;
+		font-weight: bold;
+		color: white;
+	}
+	.btn_margin{
+		margin-top: 20px;
+		margin-left: 60px;
+	}
+	.login_btn{
+		border: 2px solid #6775A6;
+		background-color: #054390;
+		color: white;
+		width: 40px;
+		height: 25px;
+		font-size: 12px;
+		line-height: 25px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.font_white{
+		color: white;
+	}
+	.login_btn2{
+		border: 2px solid #6775A6;
+		background-color: #054390;
+		color: white;
+		width: 100px;
+		height: 25px;
+		font-size: 13px;
+		font-weight: bold;
+		line-height: 25px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.div_border{
+		border: 1px solid white;
+		border-radius: 15px;
+		height: 200px;
+		padding-left: 40px;
+		
+	}
+	.div_margin_left{
+		margin-left: 850px;
+	}
