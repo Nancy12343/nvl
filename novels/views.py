@@ -1,4 +1,4 @@
-# Create your views here.
+# coding:utf-8
 from django.views.generic.base import TemplateView, View
 from django.views.generic.edit import FormView
 from .models import NovelDetail, NovelSection, Chapter, Comment, SectionDetail
@@ -28,7 +28,6 @@ def file_download(request):
     response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
 
     return response
-
 
 class IndexView(TemplateView):
     template_name = 'novels/home.html'
@@ -68,6 +67,11 @@ class DetailView(TemplateView):
         novel_id = self.request.GET.get('pk')
         detail = NovelDetail.objects.get(pk=novel_id)
         if detail:
+            try:
+                detail.click_count += 1
+                detail.save()
+            except:
+                pass
             chapters = Chapter.objects.filter(novelDetail=detail)
             context_data['novelDetail'] = detail
             context_data['chapters'] = chapters
@@ -89,6 +93,13 @@ class ChapterView(TemplateView):
         pk = kwargs['pk']
         chapter = Chapter.objects.get(pk=pk)
         if chapter:
+            # increase the click count of the novel
+            try:
+                novelDetail = chapter.novelDetail
+                novelDetail.click_count += 1
+                novelDetail.save()
+            except:
+                pass
             next_chapter = Chapter.objects.filter(pre_chapter=chapter)
             if next_chapter:
                 context_data['next_chapter'] = next_chapter[0]
@@ -255,6 +266,24 @@ class EditView(FormView):
             context_data['novelDetail'] = novelDetail
             chapters = Chapter.objects.filter(novelDetail=novelDetail)
             context_data['chapters'] = chapters
-
         return context_data
+
+class SearchView(TemplateView):
+    template_name = 'novels/search.html'
+
+    def get(self, request, *args, **kwargs):
+        return super(SearchView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        searchCondition = request.POST.get('searchCondition').encode('UTF-8')
+        searchContext = request.POST.get('searchContext')
+        data = {}
+        novelDetail = []
+        if searchCondition == '作者':
+            novelDetail = NovelDetail.objects.filter(writer__username__contains=searchContext)
+        elif searchCondition == '书名':
+            novelDetail = NovelDetail.objects.filter(name__contains=searchContext)
+        data['novelDetails'] = novelDetail
+        return render(request, self.template_name, data)
+
 

@@ -23,7 +23,7 @@
 							<div class = "item_div float_left">
 								<div><img width="160px" height="226px"  src="{{ res.image.url }}"> </div>
 								<div><a href = "{% url 'novels:detail' %}?pk={{ res.id }}">{{ res.name }}</a></div>
-								<div>最后更新时间 {{ res.last_edit }} </div>
+								<div>最后更新时间 {{ res.last_edit|date:'Y-m-d H:i:s' }} </div>
 								<div>作者：<a href = "{% url 'novels:writerInfo' res.writer.id %}">{{ res.writer.account }}</a> </div>
 							</div>
 						{% endfor %}
@@ -43,7 +43,7 @@
                             <div class = "item_div float_left">
                                 <div><img width="160px" height="226px" src="{{ result.novelDetail.image.url }}"> </div>
                                 <div><a href = "{% url 'novels:detail' %}?pk={{ result.novelDetail.id }}">{{ result.novelDetail.name }}</a></div>
-                                <div>最后更新时间 {{ result.novelDetail.last_edit }} </div>
+                                <div>最后更新时间 {{ result.novelDetail.last_edit|date:'Y-m-d H:i:s' }} </div>
                                 <div>作者：<a href = "{% url 'novels:writerInfo' result.novelDetail.writer.id %}">{{ result.novelDetail.writer.account }}</a> </div>
                             </div>
                         {% endfor %}

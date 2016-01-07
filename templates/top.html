@@ -35,7 +35,7 @@
 		{% endif %}
 		<!-- search -->
 		<div class = "float_left margin_top3">
-			<form action="searchAction" method = "post" id = "searchFrm">
+			<form action="{% url 'novels:search' %}" method = "post" id = "searchFrm">{% csrf_token %}
 				<div class = "float_left">
 					<select name = "searchCondition">
 						<option>请选择搜索条件</option>

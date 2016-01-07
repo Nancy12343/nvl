@@ -26,8 +26,8 @@
 					</div>
 					<div class = "right_info float_left">
 						<div>作者：{{ novelDetail.writer.account }} </div>
-						<div>最新更新时间：{{ novelDetail.last_edit }} </div>
-						<div>点击数：{{ novelDetail.click_count }} </div>
+						<div>最新更新时间：{{ novelDetail.last_edit|date:'Y-m-d H:i:s' }} </div>
+						<div>浏览次数：{{ novelDetail.click_count }} </div>
 						{% if novelDetail.is_finish %}
 							<div>是否已完结：是</div>
 						{% endif %}

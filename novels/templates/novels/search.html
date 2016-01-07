@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel=stylesheet type="text/css"/>
+<link href="{% static 'css/detail.css' %}" rel=stylesheet type="text/css"/>
+{% endblock %}
+{% block content %}
+	<!-- Top -->
+	{% include 'top.html' %}
+	<!-- main body -->
+	<div class = "body">
+		<!-- ADV -->
+		<div> <img src="{{ STATIC_URL }}image/ADV/ADV1.gif"> </div>
+		<div class = "new_title">搜索结果</div>
+		<div>
+			<div class = "margin_top margin_left2">
+				{% for res in novelDetails %}
+					<div class = "float_left">
+						<div><img width="160px" height="226px" src="{{ res.image.url }}"></div>
+						<div class = "text_align margin_top"><a href = "{% url 'novels:detail' %}?pk={{ res.id }}">{{ res.name }}</a></div>
+					</div>
+					<div class = "right_info float_left">
+						<div>作者：<a href = "{% url 'novels:writerInfo' res.writer.id %}">{{ res.writer }}</a> </div>
+						<div>最后更新时间 {{ res.last_edit|date:'Y-m-d H:i:s' }} </div>
+						<div>点击数：{{ res.click_count }} </div>
+						{% if res.is_finish %}
+							<div>是否已完结：是</div>
+						{% else %}
+							<div>是否已完结：否</div>
+						{% endif %}
+						<div>类型： {{ res.get_sectionName }} </div>
+						<div>简介: {{ res.sumary }} </div>
+					</div>
+					<div class = "clear_float"></div>
+				{% endfor %}
+				<div class = "clear_float"></div>
+			</div>
+		</div>
+		<!-- bottom -->
+		{% include 'bottom.html' %}
+	</div>
+{% endblock %}

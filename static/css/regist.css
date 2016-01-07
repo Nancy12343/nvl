@@ -32,6 +32,13 @@
 	color: red;
 	font-size: 13px;
 }
+
+.error_div{
+	width: 100px;
+	margin: auto;
+	color: red;
+	font-size: 13px;
+}
 .title_font{
 	font-size: 30px;
 	font-weight: bold;

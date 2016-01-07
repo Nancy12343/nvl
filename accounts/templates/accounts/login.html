@@ -18,19 +18,19 @@ function regist(){
 {% endblock %}
 {% block content %}
     <div class = "body">
-        <div class = "top"> <img src="image/logo/logo5.png"> </div>
+        <div class = "top"> <img src="{{ STATIC_URL }}image/logo/logo5.png"> </div>
         <!-- main -->
         <div class = "main_height">
             <div class = "title_font">登陆 >></div>
                 {% if form.non_field_errors or error_message %}
-                <div class="">
+                <div class="error_div">
                     {% for error in form.non_field_errors %}
-                    <p class=""><strong>{{ error }}</strong></p>
+                    <p><strong>{{ error }}</strong></p>
                     {% endfor %}
                     {% if error_message %}
-                    <p class=""><strong>{{ error_message }}</strong></p>
+                    <p><strong>{{ error_message }}</strong></p>
                     {% endif %}
-                    <p class="">Note that Password is case sensitive.'</p>
+                    <p>Note that Password is case sensitive.</p>
                 </div>
                 {% endif %}
                 {% if info %}

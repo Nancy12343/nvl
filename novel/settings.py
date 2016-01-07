@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'novels',
     'south',
+    'django_extensions',
 
 )
 

@@ -78,6 +78,15 @@ class NovelDetail(models.Model):
     def __unicode__(self):
         return '%s' %self.name.strip()
 
+    @property
+    def get_sectionName(self):
+        novelSection = self.section_detail.all()
+        section_name = ""
+        if novelSection:
+            for section in novelSection:
+                section_name =section_name + section.novelSection.name + '  '
+        return section_name
+
 
 class SectionDetail(models.Model):
     novelDetail = models.ForeignKey(NovelDetail, related_name='section_detail')

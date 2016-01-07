@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^writerInfo/(?P<pk>\d+)/$', WriterInfo.as_view(), name='writerInfo'),
     url(r'^addNovel/$', AddNovelView.as_view(), name='addNovel'),
     url(r'^edit/$', EditView.as_view(), name='edit'),
-    url(r'^downloadChapter/$', file_download, name='download_chapter')
+    url(r'^downloadChapter/$', file_download, name='download_chapter'),
+    url(r'^search/$', SearchView.as_view(), name='search'),
 
 )

@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate
 
 class AccountForm(forms.Form):
 
-    username = forms.CharField(required=True, max_length=100, label='Username')
-    password = forms.CharField(required=True, max_length=20, widget=forms.PasswordInput, label='Password')
+    username = forms.CharField(required=True, max_length=100, label='用户名')
+    password = forms.CharField(required=True, max_length=20, widget=forms.PasswordInput, label='密码')
 
 
     def clean(self):
@@ -29,11 +29,11 @@ class AccountForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    nickname = forms.CharField(max_length=100, label='Nickname')
-    username = forms.CharField(required=True, max_length=100, label='Username')
-    password = forms.CharField(required=True, max_length=20, widget=forms.PasswordInput, label='Password')
-    confirm_pwd = forms.CharField(required=True, max_length=20, widget=forms.PasswordInput, label='Confirm Password')
-    email = forms.EmailField(required=True,label='Email',
+    nickname = forms.CharField(max_length=100, label='昵称')
+    username = forms.CharField(required=True, max_length=100, label='用户名')
+    password = forms.CharField(required=True, max_length=20, widget=forms.PasswordInput, label='密码')
+    confirm_pwd = forms.CharField(required=True, max_length=20, widget=forms.PasswordInput, label='确认密码')
+    email = forms.EmailField(required=True,label='邮箱',
                     error_messages={'invalid': 'Please enter a valid Email',
                                     'required': 'Email must not be empty'})
 
