@@ -2,14 +2,21 @@
 from django.views.generic.base import TemplateView, View
 from django.views.generic.edit import FormView
 from .models import NovelDetail, NovelSection, Chapter, Comment, SectionDetail
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, render_to_response
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin
 import datetime
 from accounts.models import Account
 from django.contrib.auth.models import User
 from .forms import ChapterForm
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, Http404
+from django.template import RequestContext
+
+def handle_404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
 
 def file_download(request):
 
@@ -21,12 +28,12 @@ def file_download(request):
                     yield c
                 else:
                     break
-
     the_file_name = request.GET.get('file')
+    if not the_file_name:
+        raise Http404
     response = StreamingHttpResponse(file_iterator(the_file_name))
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
-
     return response
 
 class IndexView(TemplateView):
@@ -80,6 +87,8 @@ class DetailView(TemplateView):
             for s in sections:
                 section = section + s.name + '     '
             context_data['section'] = section
+        else:
+            raise Http404
         return context_data
 
 class ChapterView(TemplateView):
@@ -108,6 +117,8 @@ class ChapterView(TemplateView):
             context_data['novelDetail'] = novelDetail
             comments = Comment.objects.filter(chapter=chapter)
             context_data['comments'] = comments
+        else:
+            raise Http404
         return context_data
 
 class CommentsView(LoginRequiredMixin, View):
@@ -285,5 +296,3 @@ class SearchView(TemplateView):
             novelDetail = NovelDetail.objects.filter(name__contains=searchContext)
         data['novelDetails'] = novelDetail
         return render(request, self.template_name, data)
-
-

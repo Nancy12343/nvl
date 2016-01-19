@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^downloadChapter/$', file_download, name='download_chapter'),
     url(r'^search/$', SearchView.as_view(), name='search'),
 
+
 )
