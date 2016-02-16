@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from .forms import ChapterForm
 from django.http import StreamingHttpResponse, Http404
 from django.template import RequestContext
+from braces.views import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 def handle_404(request):
     response = render_to_response('404.html', {},
@@ -18,6 +20,7 @@ def handle_404(request):
     response.status_code = 404
     return response
 
+@login_required
 def file_download(request):
 
     def file_iterator(file_name, chunk_size=512):
@@ -254,6 +257,8 @@ class EditView(FormView):
             novelDetail = novelDetail[0]
             chapter.novelDetail = novelDetail
             chapter.is_last_chapter = is_last
+            # import ipdb;ipdb.set_trace()
+            # utf8_file = codecs.open(content, "rb", encoding="utf-8")
             chapter.content = content
             chapter.title = title
             if novelDetail.chapter.all():
